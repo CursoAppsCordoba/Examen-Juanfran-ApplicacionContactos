@@ -44,7 +44,7 @@ public class ViewFragment extends Fragment {
             throw new ClassCastException(context.toString() + "should implement DataListener");
         }
     }
-
+// Enabled
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
