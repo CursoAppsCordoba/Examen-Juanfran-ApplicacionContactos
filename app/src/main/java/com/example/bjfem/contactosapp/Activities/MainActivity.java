@@ -36,6 +36,7 @@ import io.realm.RealmResults;
 public class MainActivity extends FragmentActivity implements MainFragment.DataListener, ViewFragment.DataCallback{
 
     private ViewFragment viewfragment;
+    private MainFragment mainfragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +55,16 @@ public class MainActivity extends FragmentActivity implements MainFragment.DataL
 
     @Override
     public void dataCall(Contacto c) {
-        viewfragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
-        viewfragment.renderBack(c);
+        mainfragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
+        mainfragment.renderBack(c);
 
 
     }
 
     @Override
     public void dataCall(String name, Integer phone, Contacto c) {
-        viewfragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
-        viewfragment.renderBack(name, phone, c);
+        mainfragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
+        mainfragment.renderBack(c, name, phone);
 
     }
 }
