@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity implements MainFragment.DataL
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.mainfragment) == null){
             mainfragment = new MainFragment();
+            viewfragment = new ViewFragment();
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.biglayout, mainfragment);
             transaction.commit();
@@ -79,6 +80,15 @@ public class MainActivity extends FragmentActivity implements MainFragment.DataL
     public void dataCall(String name, Integer phone, Contacto c) {
         mainfragment = new MainFragment();
         mainfragment.renderBack(c, name, phone);
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.biglayout, mainfragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void deleteCall(Contacto c) {
+        mainfragment = new MainFragment();
+        mainfragment.deleteBack(c);
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.biglayout, mainfragment);
         transaction.commit();

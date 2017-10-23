@@ -28,9 +28,11 @@ public class ViewFragment extends Fragment {
     private Button btnBack;
     private Button btnSave;
     private DataCallback callback;
-    private Boolean flag;
+    private Boolean flag = false;
     private Contacto c;
     private Boolean start = false;
+    private Button btnDelete;
+
 
     public ViewFragment() {
         // Required empty public constructor
@@ -100,12 +102,22 @@ public class ViewFragment extends Fragment {
         flag = true;
     }
     public void initViews(View view){
+        btnDelete = view.findViewById(R.id.btn_delete);
         name = view.findViewById(R.id.edt_name);
         phone= view.findViewById(R.id.edt_phone);
         uppername = view.findViewById(R.id.tv_name_fragment);
         btnBack = view.findViewById(R.id.btn_volver);
         btnSave = view.findViewById(R.id.btn_save);
-
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment nuevoFragmento = new MainFragment();
+                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.biglayout, nuevoFragmento);
+                transaction.addToBackStack(null);
+                deleteCallback(c);
+            }
+        });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,11 +136,15 @@ public class ViewFragment extends Fragment {
     private void contactCallback(String name, Integer phone, Contacto c){
         callback.dataCall(name, phone, c);
     }
+    private void deleteCallback(Contacto c){
+        callback.deleteCall(c);
+    }
 
 
 
     public interface DataCallback {
         void dataCall(Contacto c);
         void dataCall(String name, Integer phone, Contacto c);
+        void deleteCall(Contacto c);
     }
 }

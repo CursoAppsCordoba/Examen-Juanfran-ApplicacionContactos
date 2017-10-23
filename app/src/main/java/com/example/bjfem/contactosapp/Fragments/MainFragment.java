@@ -35,7 +35,12 @@ public class MainFragment extends Fragment implements RealmChangeListener<RealmR
     private Realm realm;
     private DataListener callback;
     private FragmentManager fragmentManager;
-
+    private Contacto cont;
+    private boolean renderB = false;
+    private boolean renderS = false;
+    private String name;
+    private Integer phone;
+    private boolean renderD = false;
 
     public MainFragment() {
         // Required empty public constructor
@@ -85,13 +90,30 @@ public class MainFragment extends Fragment implements RealmChangeListener<RealmR
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        if (renderB){
+            createNewContact(cont);
+            return view;
+        } else if (renderS){
+            editContact(name, phone, cont);
+            return view;
+        } else if (renderD){
+            deleteContact(cont);
+            return view;
+        }else{
+            return view;
+        }
 
-
-        return view;
     }
     public void createNewContact(Contacto c){
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(c);
+        realm.commitTransaction();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void deleteContact(Contacto c){
+        realm.beginTransaction();
+        c.deleteFromRealm();
         realm.commitTransaction();
         mAdapter.notifyDataSetChanged();
     }
@@ -123,9 +145,19 @@ public class MainFragment extends Fragment implements RealmChangeListener<RealmR
 
 
     public void renderBack(Contacto c) {
-        createNewContact(c);
+        renderB = true;
+        cont = c;
+
+    }
+    public void deleteBack(Contacto c) {
+        renderD = true;
+        cont = c;
+
     }
     public void renderBack(Contacto c, String name, Integer phone) {
-        editContact(name, phone, c);
+        renderS = true;
+        cont = c;
+        this.name = name;
+        this.phone = phone;
     }
 }
