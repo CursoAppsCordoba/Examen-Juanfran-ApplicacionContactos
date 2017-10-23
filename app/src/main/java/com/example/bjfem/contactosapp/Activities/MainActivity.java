@@ -1,6 +1,7 @@
 package com.example.bjfem.contactosapp.Activities;
 
 import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,29 +43,44 @@ public class MainActivity extends FragmentActivity implements MainFragment.DataL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        if (findViewById(R.id.mainfragment) == null){
+            mainfragment = new MainFragment();
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.biglayout, mainfragment);
+            transaction.commit();
+        }
     }
 
 
 
     @Override
     public void sendData(Contacto c) {
-        viewfragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentview);
+        viewfragment = new ViewFragment();
         viewfragment.renderContact(c);
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.biglayout, viewfragment);
+        transaction.commit();
+
+
     }
 
     @Override
     public void dataCall(Contacto c) {
-        mainfragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
+        mainfragment = new MainFragment();
         mainfragment.renderBack(c);
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.biglayout, mainfragment);
+        transaction.commit();
 
 
     }
 
     @Override
     public void dataCall(String name, Integer phone, Contacto c) {
-        mainfragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainfragment);
+        mainfragment = new MainFragment();
         mainfragment.renderBack(c, name, phone);
-
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.biglayout, mainfragment);
+        transaction.commit();
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,11 +73,8 @@ public class MainFragment extends Fragment implements RealmChangeListener<RealmR
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment nuevoFragmento = new ViewFragment();
-                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.biglayout, nuevoFragmento);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                ViewFragment viewfragment = new ViewFragment();
+               getFragmentManager().beginTransaction().replace(R.id.biglayout, viewfragment).commit();
             }
 
 

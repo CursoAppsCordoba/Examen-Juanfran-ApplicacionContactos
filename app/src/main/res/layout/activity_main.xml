@@ -7,11 +7,4 @@
     android:orientation="vertical"
     tools:context="com.example.bjfem.contactosapp.Activities.MainActivity">
 
-    <fragment
-        android:id="@+id/mainfragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_main"
-        />
-
 </LinearLayout>

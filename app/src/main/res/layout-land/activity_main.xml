@@ -8,12 +8,14 @@
     tools:context="com.example.bjfem.contactosapp.Activities.MainActivity">
 
     <fragment
+        android:name="com.example.bjfem.contactosapp.Fragments.MainFragment"
         android:id="@+id/mainfragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_main"
         android:layout_weight="70"/>
     <fragment
+        android:name="com.example.bjfem.contactosapp.Fragments.ViewFragment"
         android:id="@+id/fragmentview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

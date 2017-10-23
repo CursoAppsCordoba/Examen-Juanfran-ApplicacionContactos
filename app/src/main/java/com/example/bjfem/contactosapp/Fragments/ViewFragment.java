@@ -30,6 +30,7 @@ public class ViewFragment extends Fragment {
     private DataCallback callback;
     private Boolean flag;
     private Contacto c;
+    private Boolean start = false;
 
     public ViewFragment() {
         // Required empty public constructor
@@ -49,21 +50,13 @@ public class ViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         flag = false;
-        btnBack = view.findViewById(R.id.btn_volver);
-        btnSave = view.findViewById(R.id.btn_save);
-        name = view.findViewById(R.id.edt_name);
-        phone= view.findViewById(R.id.edt_phone);
-        uppername = view.findViewById(R.id.tv_name_fragment);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment nuevoFragmento = new MainFragment();
-                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.biglayout, nuevoFragmento);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        initViews(view);
+        if (start){
+            name.setText(c.getNombre());
+            phone.setText(c.getTelefono().toString());
+            uppername.setText(c.getNombre());
+        }
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +95,26 @@ public class ViewFragment extends Fragment {
     }
 
     public void renderContact(Contacto cont) {
-        name.setText(cont.getNombre());
-        phone.setText(cont.getTelefono().toString());
-        uppername.setText(cont.getTelefono().toString());
         c = cont;
+        start = true;
         flag = true;
+    }
+    public void initViews(View view){
+        name = view.findViewById(R.id.edt_name);
+        phone= view.findViewById(R.id.edt_phone);
+        uppername = view.findViewById(R.id.tv_name_fragment);
+        btnBack = view.findViewById(R.id.btn_volver);
+        btnSave = view.findViewById(R.id.btn_save);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragment mainfragment = new MainFragment();
+                android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.biglayout, mainfragment);
+                transaction.commit();
+            }
+        });
     }
 
 
